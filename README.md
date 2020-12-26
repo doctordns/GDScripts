@@ -25,4 +25,3 @@ Of course, these assumptions can be changed.
 * Get-GDShowSizeByYear.ps1 - Gets and reports the size of the GD shows, by year.
 * Get-GDShowSizeByYear.ps1 - Shows the size of each year's shows
 * Measure-GdDuplicate.ps1 - Shows how many shows are unique and how many have duplicate recordings
-* Measure-GDShows.ps1 - Shows a count of shows and how many are checked, etc. 

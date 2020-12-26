@@ -15,7 +15,7 @@ I use these scripts to curate my collection and makes some assumptions about fil
 I have my collection on USB drives stored in aset of folders. 
 The Dead and Jerry shows have a slightly different structure.
 In my archive M:\GD holds all the GD shows, with a folder for each show.
-For my Jerry shows, "N:\Jerry Garcia" holds the shows with a folder for each year containign the shows for that year.
+For my Jerry shows, "N:\Jerry Garcia" holds the shows with a folder for each year containing the shows for that year.
 Of course, these assumptions can be changed.
 
 

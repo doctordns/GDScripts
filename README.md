@@ -1,6 +1,6 @@
 # GDScripts
 
-A repository of Grateful Dead and Jerry Garcia band scripts
+A repository of Grateful Dead and Jerry Garcia band scripts  
 Thomas Lee - DoctorDNS@Gmail.Com
 
 ## Introduction

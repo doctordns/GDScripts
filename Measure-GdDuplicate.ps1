@@ -7,20 +7,26 @@
     The hashtable key is the date of the show.
     The hashtable value is a count of how many recordings for that event
     The length of the hash table is thus the number of unique events, thus the rest of the shows are therefore duplicates.
-    Updated: 10 APr 2019 - rename to use a proper verb, updated the documentation and did some updates to the code.
+    Updated: 10 Apr 2019 - rename to use a proper verb, updated the documentation and did some updates to the code.
                          - Added a count of miller transfers too.
+    Updated 29 Dec 2020  - updated header and fixed example                        
+
 .NOTES
     File Name  : Measure-GDDuplicate.ps1
 	Author     : Thomas Lee - tfl@psp.co.uk
 .LINK
     http://www.pshscripts.blogspot.com
 .EXAMPLE
-    C:\foo\gd scripts\Measure-GdDuplicate.ps1
+    Measure-GdDuplicate.ps1
     +-------------------------------------+
-    !  Measure-GdDuplicate.ps1 - v 2.0.0  !
+    !  Measure-GdDuplicate.ps1 - v 2.0.3  !
     ! Find Duplicate Shows in: M:\gd      !
     +-------------------------------------+
 
+2812 total GD show recordings
+1741 unique GD concerts
+782 shows have duplicates
+1071 shows are duplicates of others
     
 #>
 
@@ -36,10 +42,10 @@ $GDDiskRoot = "M:"
 $DeadShowBase = $GDDiskRoot + '\gd'
 
 # Display Header
-"+-----------------------------------+"
-"!  count-GdDuplicate.ps1 - v 2.0.0  !"
-"!  Find Duplicate Shows in: $DeadShowBase   !"
-"+-----------------------------------+"
+"+-------------------------------------+"
+"!  Measure-GdDuplicate.ps1 - v 2.0.3  !"
+"!  Find Duplicate Shows in: $DeadShowBase     !"
+"+-------------------------------------+"
 ""
 # Get start time
 $Starttime = Get-Date

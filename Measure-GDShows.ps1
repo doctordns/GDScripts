@@ -11,7 +11,7 @@ Param (
 #   $JerryShowBase     - folder at top of jerry shows
 #  
 #  Dead shows are formatted:
-#  gdyy-mm-dd.<tokens indicating sbd/aud,etree id, etc>,<codec>|BROKEN
+#  gdyy-mm-dd.<tokens indicating sbd/aud,etree id, <codec> znc possily BROKEN
 #  EG
 #  gd71-01-21.aud.miller.131517.flac16
 #  gd72-03-18.sbd.shnf.BROKEN      # a show whose MD5's do not check out.

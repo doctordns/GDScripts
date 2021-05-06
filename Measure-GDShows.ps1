@@ -17,7 +17,7 @@ Param (
 #  gd72-03-18.sbd.shnf.BROKEN      # a show whose MD5's do not check out.
 #
 #  Jerry shows are under the base but organised by year so:
-#  jg_1975_project\jg75-05-21.lom.138271.sbd.puffalo.flac16
+#  jg_1975_project\jg75-05-21.lom.138271.sbd.buffalo.flac16
 
 # Here are the base folders
 $DeadShowBase = 'M:\GD'      

@@ -3,20 +3,21 @@
 
 [CmdletBinding()]
 Param (
-  [Switch] $MeasureDuplicates
+  [Switch] $MeasureDuplicates = $false
 )
 
 # Define Constants:
 #   $DeadShowBase      - folder at top of gd shows
 #   $JerryShowBase     - folder at top of jerry shows
 #  
-#  Dead shows are formatted:
-#  gdyy-mm-dd.<tokens indicating sbd/aud,etree id, <codec> znc possily BROKEN
-#  EG
+#  All Grateful Dead shows are formatted:
+#  gdYY-MM-DD.<tokens indicating sbd/aud, Etree id, <codec> znc possibly BROKEN
+#  The last token is the codec.
+#  Exaamples:
 #  gd71-01-21.aud.miller.131517.flac16
 #  gd72-03-18.sbd.shnf.BROKEN      # a show whose MD5's do not check out.
 #
-#  Jerry shows are under the base but organised by year so:
+#  All Jerry shows are under the base but organised by year so:
 #  jg_1975_project\jg75-05-21.lom.138271.sbd.buffalo.flac16
 
 # Here are the base folders
@@ -24,7 +25,7 @@ $DeadShowBase = 'M:\GD'
 $JerryShowBase = 'N:\Jerry Garcia'
 
 # Announce Ourselves
-'Measure-GDShows.Ps1 - v 3.0.2'
+'Measure-GDShows.Ps1 - v 3.03'
 'Count My Dead\Jerry Shows'
 '+-----------------------------------+' 
 "!Dead Show Base  :  $DeadShowBase           !"
@@ -32,11 +33,11 @@ $JerryShowBase = 'N:\Jerry Garcia'
 '+-----------------------------------+'
 ''
 ''
+
 # Get start time
 $StartTime = Get-Date
 
 # Count the Dead shows
-
 $Dir = Get-ChildItem -Path $DeadShowBase -Directory
 $DeadShows = $Dir.Count
 if ($DeadSHows -le 0) { "No shows found - Check Constants" }
@@ -49,6 +50,7 @@ $deadauds = $dir | Where-Object name -match '.aud'
 $deadunkw = $dir | Where-Object name -Match '.unk'
 $deadshn  = $dir | Where-Object name -Match '.shn'
 $deadflac = $dir | Where-Object name -Match '.flac'
+$DeadCOMM = $dir | Where-Object name -Match 'COMMERCIAl'
 $millerShows = $dir | Where-Object name -like "*.miller.*"
 $deadunknown = $dir | Where-Object { $_.name -notmatch 'flac' -and $_.name -notmatch '.shn' }
 
@@ -78,26 +80,27 @@ foreach ($d in $dir) {
 
 'Grateful Dead Show Summary'
 '--------------------------'
-"Total shows          : $deadshows"
-"Soundboards          : $($deadsbds.count)"
-"Auds                 : $($deadauds.count)"
-"Unknown              : $($deadunkw.count)"
-"Partial              : $($deadpart.count)"
-"Broken               : $($deadbrkn.count)"
-"Flac                 : $($deadflac.count)"
-"Shn                  : $($deadshn.count)"
-"Charlie Miller shows : $($millershows.count)"
+"Total shows           : $deadshows"
+"Soundboards           : $($deadsbds.count)"
+"Auds                  : $($deadauds.count)"
+"Unknown               : $($deadunkw.count)"
+"Partial               : $($deadpart.count)"
+"Broken                : $($deadbrkn.count)"
+"Flac                  : $($deadflac.count)"
+"Shn                   : $($deadshn.count)"
+"Commercial Recordings : $($deadCOMM.count)"
+"Charlie Miller shows  : $($millershows.count)"
 # Shows not shn or flac in folder/show name
-'Unknown Codec        : {0}' -f $deadunkown.count
+'Unknown Codec         : {0}' -f $deadunkown.count
 $DeadPctChecked = ($DeadMD5checked / $DeadShows).tostring('P')
-"Show ID in show name : $ShowidOK"
-"Show ID missing      : $Showidbad"
-"MD5's check          : $DeadMD5checked ($DeadPctChecked)"
+"Show ID in show name  : $ShowidOK"
+"Show ID missing       : $Showidbad"
+"MD5's check           : $DeadMD5checked ($DeadPctChecked)"
 $DeadShowsInEtreePct = ($DeadShowInEtree / $Deadshows).tostring('p')
-"Shows in Etree       : $DeadShowInEtree ($DeadShowsInEtreePct)"
+"Shows in Etree        : $DeadShowInEtree ($DeadShowsInEtreePct)"
 ''
 
-# if duplicate counting requested - run measure-gdduplicates
+# If duplicate counting requested - run measure-gdduplicates
 
 If ($MeasureDuplicates) {
   .\Measure-GdDuplicate.ps1
@@ -143,7 +146,7 @@ foreach ($d in $dir) {
 
 # Display Jerry results
 
-'JERRY GARCIA SHOW SUMMARY'
+'Jerry Garcia Show Summary'
 '-------------------------'
 "Total shows:   :  $JerryShows"
 "Soundboards    :  $($Jerrysbds.count)"
@@ -157,25 +160,26 @@ $JerryShowsInEtreePct = ($JerryinEtree / $JerryShows).tostring('p')
 "Shows in Etree :  $JerryinEtree ($JerryShowsInEtreePCT)"
 ''
 
+# Calculate Summary
+$TotalShows = $DeadShows + $JerryShows
+$Checked    = ($Jerrymd5checked + $DeadMD5Checked)
+$Pctchecked = ($Jerrymd5checked + $DeadMD5Checked) / $totalshows
+$PCs        = $pctchecked.tostring('P2')
+
+$InEtree    = ($JerryInEtree + $DeadShowInEtree)
+$InEtreepcs = ($JerryInEtree + $DeadShowInEtree) / $totalshows
+$Etreepcs   = $inetreepcs.tostring('P2')
+
+$TotalSbds = $Jerrysbds.count + $DeadSbds.count
+$TotalAuds = $JerryAuds.count + $DeadAuds.count
+
 # Display Summary
 'SUMMARY'
 '-------'
-
-$totalshows = $DeadShows + $JerryShows
-$checked = ($Jerrymd5checked + $DeadMD5Checked)
-$pctchecked = ($Jerrymd5checked + $DeadMD5Checked) / $totalshows
-$pcs = $pctchecked.tostring('P2')
-
-$inetree = ($JerryInEtree + $DeadShowInEtree)
-$inetreepcs = ($JerryInEtree + $DeadShowInEtree) / $totalshows
-$etreepcs = $inetreepcs.tostring('P2')
-
-"Total Shows : $totalshows"
-"MD5s OK     : $checked ($pcs)"
-"In Etree db : $inetree ($etreepcs)"
-$totalsbds = $Jerrysbds.count + $deadsbds.count
-"Total Sbds  : $totalsbds"
-$totalauds = $Jerryauds.count + $deadauds.count
-"Total Auds  : $totalauds"
+"Total Shows : $TotalShows"
+"MD5s OK     : $Checked ($PCs)"
+"In Etree db : $InEtree ($Etreepcs)"
+"Total Sbds  : $TotalSbds"
+"Total Auds  : $TotalAuds"
 
 # The End

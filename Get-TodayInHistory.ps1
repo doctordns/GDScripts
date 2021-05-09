@@ -4,7 +4,7 @@
 
 [CmdletBinding()]
 Param (
-  [Switch] $OpenExplorerFolders
+  [Switch] $OpenExplorerFolders   # opens today's shows in explorer
 )
 
 
@@ -21,6 +21,8 @@ Param (
 #  Jerry shows are under the base but organised by year so:
 #  jg_1975_project\jg75-05-21.lom.138271.sbd.buffalo.flac16
 # # Here are the base folders
+$NS = "No Shows From today ($(Get-Date -Format MM-dd)"
+
 $DeadShowBase = 'M:\GD'      
 $JerryShowBase = 'N:\Jerry Garcia'
 
@@ -42,17 +44,17 @@ $TD = $Today.Day
 if ($TD -le 9){$TD = "0$TD"}
 $TodaySearch = "$TM-$TD"
 $TodayGD = F $TodaySearch
-If(($TodayGD.count) -eq 0) {$TodayGD = "NO SHOWS FROM THIS DATE"}
+If(($TodayGD.count) -eq 0) {$TodayGD = $NS}
 
 
 # 3. Find Jerry in History
 $TodayJerry = FJ $TodaySearch
-If(($TodayJerry.count) -eq 0) {$TodayJerry = "NO SHOWS FROM THIS DATE"}
+If(($TodayJerry.count) -eq 0) {$TodayJerry = $NS}
 
 
 # 4. Results
-' ****  Today in GD history'
-If ($TodayGD -match '^NO SHOWS') {
+' ****  Today in GD History'
+If ($TodayGD -eq $NS) {
   $TodayGD
 }
 Else {
@@ -63,7 +65,7 @@ Else {
 $TodayJerry
 
 
-if ($TodayJerrry -match '^NO SHOWS') {
+if ($TodayJerrry -eq $NS) {
   $TodayJerry
 }
 Else {
@@ -73,6 +75,11 @@ Else {
 
 # 5. And open the explorer windows if asked
 if ($OpenExplorerFolders) {
-    $todayGD | ForEach-Object {explorer $_.fullname}
-    $todayJerry | ForEach-Object {explorer $_.fullname}
+  if (-not ($TodayGD -eq $ns)) {
+      $TodayGD | 
+        ForEach-Object {explorer $_.FullName}
+  }
+  if (-not ($TodayJerry -eq $NS)){ 
+    ForEach-Object {explorer $_.FullName}
+  }
 }

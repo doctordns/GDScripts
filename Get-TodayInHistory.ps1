@@ -1,4 +1,4 @@
-# Get-TodayInHostory
+# Get-TodayInHistory
 
 #  Version 1.0 - 6 May 2021
 
@@ -27,7 +27,7 @@ $DeadShowBase = 'M:\GD'
 $JerryShowBase = 'N:\Jerry Garcia'
 
 # 1. Announce Ourselves
-'Get-TodayInHistory.Ps1 - v 1.0.0'
+'Get-TodayInHistory.Ps1 - v 1.0.1'
 'Finding Today In GD/Jerry History'
 '+-----------------------------------+' 
 "!Dead Show Base  :  $DeadShowBase           !"
@@ -46,11 +46,9 @@ $TodaySearch = "$TM-$TD"
 $TodayGD = F $TodaySearch
 If(($TodayGD.count) -eq 0) {$TodayGD = $NS}
 
-
 # 3. Find Jerry in History
 $TodayJerry = FJ $TodaySearch
 If(($TodayJerry.count) -eq 0) {$TodayJerry = $NS}
-
 
 # 4. Results
 ' ****  Today in GD History'
@@ -62,9 +60,6 @@ Else {
 }
 ''
 ' *** Today in Jerry History'
-$TodayJerry
-
-
 if ($TodayJerrry -eq $NS) {
   $TodayJerry
 }

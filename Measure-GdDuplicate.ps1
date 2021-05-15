@@ -1,3 +1,4 @@
+function Measure-GdDuplicate {
 <#
 .SYNOPSIS
     Finds duplicates in the GD archive
@@ -35,10 +36,10 @@
 ##
 
 # Constants:
-# $GDDiskRoot    - where to find shows
-# $DeadShowBase  - folder at top of gd shows
+# $GDDiskRoot    - Disk where shows are stored
+# $DeadShowBase  - Path to the folder containing all the GD shows
 
-$GDDiskRoot = "M:"
+$GDDiskRoot   = "M:"
 $DeadShowBase = $GDDiskRoot + '\gd'
 
 # Display Header
@@ -48,16 +49,14 @@ $DeadShowBase = $GDDiskRoot + '\gd'
 "+-------------------------------------+"
 ""
 # Get start time
-$Starttime = Get-Date
-Set-StrictMode -off
+$StartTime = Get-Date
 
 # Get the Dead shows
-
-$Dir = Get-ChildItem $DeadShowBase | Where-Object { $_.psiscontainer }
+$Dir       = Get-ChildItem $DeadShowBase | Where-Object { $_.psiscontainer }
 $DeadShows = $Dir.count
-if ($DeadSHows -le 0) { "no shows found - check constants"; return }
+if ($DeadSHows -le 0) { "No shows found - check the constants"; return }
 
-# So here look for duplicates.
+# Look for duplicates
 $Shows = @{ }  # Create the hash table
 $j = 0         # create an intital count
 
@@ -66,22 +65,22 @@ foreach ($Show in $Dir) {
     $j++                                    # found another show
     $ShowDate = $Show.Name.Substring(2, 8)  # Gets the date out of the folder name
 
-    if ($Shows.$Showdate) {
-        $Shows.$showdate++         # show exists, this one a dup
+    if ($Shows.$ShowDate) {
+        $Shows.$ShowDate++         # show exists, this one a dup
     }  
     else {
-        $Shows += @{$showdate = 1 }   # new show, of which we have just 1 (so far!)
+        $Shows += @{$ShowDate = 1 }   # new show, of which we have just 1 (so far!)
     }	
 
 }
 
 # Basic count done. now work out many shows are duplicates and how many total duplicates there are.
-$Shows = $Shows.getenumerator() | 
+$Shows = $Shows.GetEnumerator() | 
   Sort-Object -Property Name                  # Ensure chronological order
 $TotalDups     = 0
 $TotalDupShows = 0
 
-# Now loop throch each show and calculate the duplicates
+# Now loop through each show and calculate the duplicates
 foreach ($Show in $Shows) {
     if ($Show.Value -gt 1) {
         # If > 1, we have multiple copies
@@ -96,3 +95,4 @@ foreach ($Show in $Shows) {
 "{0} unique GD concerts" -f $Shows.count
 "{0} shows have duplicates" -f $Totaldups
 "{0} shows are duplicates of others" -f $TotalDupShows
+}

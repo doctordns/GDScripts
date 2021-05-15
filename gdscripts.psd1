@@ -53,7 +53,8 @@ Description = 'Contains functions to assist with curation of a GratefulDead/Jerr
 ScriptsToProcess = @(
  'Get-GdHelp.ps1',
  'Measure-GdDuplicate.ps1',
- 'Get-DeadShowEncoding.ps1'
+ 'Get-DeadShowEncoding.ps1',
+ 'Get-TodayInHistory.ps1'
 )
 
 # Type files (.ps1xml) to be loaded when importing this module
@@ -66,7 +67,7 @@ ScriptsToProcess = @(
 # NestedModules = @()
 
 # Functions to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no functions to export.
-FunctionsToExport = @('*')
+FunctionsToExport = '*'
 
 # Cmdlets to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no cmdlets to export.
 CmdletsToExport = @()
@@ -115,9 +116,9 @@ PrivateData = @{
         # External dependent modules of this module
         # ExternalModuleDependencies = @()
 
-    } # End of PSData hashtable
+    } # End of PSData hash table
 
-} # End of PrivateData hashtable
+} # End of PrivateData hash table
 
 # HelpInfo URI of this module
 # HelpInfoURI = ''

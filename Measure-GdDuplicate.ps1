@@ -21,7 +21,7 @@ function Measure-GdDuplicate {
     Measure-GdDuplicate.ps1
     +-------------------------------------+
     !  Measure-GdDuplicate.ps1 - v 2.0.3  !
-    ! Find Duplicate Shows in: M:\gd      !
+    !   Find Duplicate Shows in: M:\gd    !
     +-------------------------------------+
 
 2812 total GD show recordings
@@ -95,4 +95,9 @@ foreach ($Show in $Shows) {
 "{0} unique GD concerts" -f $Shows.count
 "{0} shows have duplicates" -f $Totaldups
 "{0} shows are duplicates of others" -f $TotalDupShows
+
+# Finish
+$FinishTime = Get-Date
+$ES = ($FinishTime - $StartTime).TotalSeconds
+"$ES Seconds elapsed"
 }

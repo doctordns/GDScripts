@@ -52,7 +52,8 @@ Description = 'Contains functions to assist with curation of a GratefulDead/Jerr
 # Script files (.ps1) that are run in the caller's environment prior to importing this module.
 ScriptsToProcess = @(
  'Get-GdHelp.ps1',
- 'Measure-GdDuplicate.ps1'
+ 'Measure-GdDuplicate.ps1',
+ 'Get-DeadShowEncoding.ps1'
 )
 
 # Type files (.ps1xml) to be loaded when importing this module

@@ -1,4 +1,5 @@
-﻿<#
+﻿Function Get-DeadShowEncoding {
+<#
 .Synopsis
    Gets the encoding extension from all Dead Shows and displays them
 .DESCRIPTION
@@ -20,6 +21,24 @@
    shnf_shn                       56                                                                                 
 #>
 
+# Here are the base folders
+$DeadShowBase = 'M:\GD'
+$JerryShowBase = 'N:\Jerry Garcia'
+
+# Announce Ourselves
+'Measure-GDShows.Ps1 - v 3.03'
+'Count My Dead\Jerry Shows'
+'+-----------------------------------+'
+"!Dead Show Base  :  $DeadShowBase           !"
+"!Jerry Show Base :  $JerryShowBase !"
+'+-----------------------------------+'
+''
+''
+
+
+
+
+
 Set-Location M:\gd
 $Dirs=Get-ChildItem -Directory
 
@@ -33,3 +52,5 @@ $ext.$x++
 # Display results
 $ext.GetEnumerator() | sort value -desc
 '{0} different encodings' -f $ext.count
+
+} # end of function

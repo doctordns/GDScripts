@@ -9,48 +9,45 @@
    current naming convention.
 
 .NOTES
-   File Name    : Get-DeadShowEncoding.ps1
+   Function Name    : Get-DeadShowEncoding
 .LINK
-   This script posted to: http://pshscripts.blogspot.com
+   None yet
 .EXAMPLE
-   Psh> .\Get0DeadShowEncoding.ps1
+   Psh> .Get-DeadShowEncoding
    Name                           Value                                                                              
    ----                           -----                                                                              
    shnf                           1021                                                                               
    flacf                          53                                                                                 
    shnf_shn                       56                                                                                 
+   ...
 #>
 
-# Here are the base folders
+# Define are the base folders
 $DeadShowBase = 'M:\GD'
 $JerryShowBase = 'N:\Jerry Garcia'
 
 # Announce Ourselves
 'Measure-GDShows.Ps1 - v 3.03'
-'Count My Dead\Jerry Shows'
-'+-----------------------------------+'
-"!Dead Show Base  :  $DeadShowBase           !"
-"!Jerry Show Base :  $JerryShowBase !"
-'+-----------------------------------+'
-''
-''
+'+-------------------------------------+'
+"! Counting the GD folder extensions   !"
+"! Dead Show Base  :  $DeadShowBase            !"
+"! Jerry Show Base :  $JerryShowBase  !"
+'+-------------------------------------+'
 
+# Get the folders
+$Dirs = Get-ChildItem -path $DeadShowBase -Directory
 
+# Create a hash table of extensions
+$Ext = @{}
 
-
-
-Set-Location M:\gd
-$Dirs=Get-ChildItem -Directory
-
-$ext = @{}
-
-Foreach ($dir in $dirs) {
-$x = $dir.FullName.split('.')[-1]
-$ext.$x++
+# now iterate through each directory
+Foreach ($Dir in $Dirs) {
+  $X = $Dir.FullName.split('.')[-1]
+  $Ext.$X++
 }
 
 # Display results
-$ext.GetEnumerator() | sort value -desc
+$ext.GetEnumerator() | Sort-Object -Property Value -Descending
 '{0} different encodings' -f $ext.count
 
 } # end of function

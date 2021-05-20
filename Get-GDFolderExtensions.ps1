@@ -1,17 +1,27 @@
 # Get-GDFolderExtensions
 
 #  This script gets the extensions for each folder in the GD shows Folder.
-#  Some folders are gadly named and need updating
+#  Some folders are badly named and need updating
 
-$GDFolder = 'm:\GD'
-$files = gci $GDFolder -Directory
-$fht = @{}
+function Get-GDFolderExtensions {
+    
+[CmdletBinding()]
+Param ()
 
-foreach ($file in $files) {
-    $fn = $file.fullname.split('.')[-1]
-    $FHT.$fn++
+# define the base folders
+$GDFolder = 'M:\GD'
+$Files    = Get-ChildItem -Path $GDFolder -Directory
+$FHT      = @{}
+
+# Count the duplicates
+foreach ($File in $Files) {
+  $Fn = $File.Fullname.split('.')[-1]
+  $FHT.$Fn++
 }
 
-# Display
+# Display the results
 "Folder extensions in $GDFolder"
-$fht.GetEnumerator() | sort value
+$FHT.GetEnumerator() | 
+  Sort-Object -Property Value
+
+} # End of the function

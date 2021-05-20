@@ -1,5 +1,4 @@
-# Get-GDShowSizeByYear.ps1
-
+# Get-GDShowSizeByYear
 <#
 .SYNOPSIS
     Reports GD Archive size by year
@@ -15,7 +14,7 @@
     System.String
 
 .NOTES
-  1. This assumes all files in the archige ($GDBASE) are of the format:
+  1. This assumes all files in the archive ($GDBASE) are of the format:
           gdyy-mm-dd-...
      The regular expression in the middle of the script parses each show folder name to pull out
      the year from the show name (ie the folder name)     
@@ -26,8 +25,7 @@
   Left as an exercises for the user
 #>
 
-
-######  Start of script
+Function Get-GDShowSizeByYear {
 
 # Say Hello
 
@@ -39,7 +37,7 @@
 
 # Set and report base file location
 $GDBase = 'M:\gd'
-"GDBase:   [$GDBASE]"
+"GDBase: [$GDBase]"
 
 # Get GD folders from base
 $Shows = Get-ChildItem -Path $GDBase -Directory
@@ -72,3 +70,4 @@ $SBYHT.GetEnumerator() |
       $sum += ([int64]$_.value/1gb)
     } 
 "Total is: {0,5:N3} GB" -f $sum
+} # end of function

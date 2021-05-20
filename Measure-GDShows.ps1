@@ -1,6 +1,7 @@
 # Measure-GDShows.ps1
 # Count the Grateful Dead and Jerry Shows in my archive
 
+Function Measure-GDShows {
 [CmdletBinding()]
 Param (
   [Switch] $MeasureDuplicates = $false
@@ -182,4 +183,4 @@ $TotalAuds = $JerryAuds.count + $DeadAuds.count
 "Total Sbds  : $TotalSbds"
 "Total Auds  : $TotalAuds"
 
-# The End
+} # end of function

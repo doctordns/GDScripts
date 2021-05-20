@@ -33,7 +33,7 @@ function f  {param ($d) Get-ChildItem -path gd:\* | Where-Object {$_.name -match
 function fj {Param ($d)
  $JerryShowBase  = "N:\Jerry Garcia"
  # Get high level set
- $Years = Get-ChildItem -Path s $JerryShowBase | 
+ $Years = Get-ChildItem -Path $JerryShowBase | 
    Where-Object {$_.psiscontainer -and $_.name -match "JG_"}
  # now get shows in each of these
  $dir = @()

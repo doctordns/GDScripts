@@ -15,19 +15,18 @@ $HelpText = @'
 +------------------------------------------------------------+
 !                                                            !
 !            Thomas's Grateful Dead Module                   !
-!                   Version: 1.0.0                           !
-!                  Date: 15 May 2021                         !
+!                   Version: 1.0.1                           !
+!                  Date: 20 May 2021                         !
 !                                                            !
 +------------------------------------------------------------+
 
 The module contains the following functions:
 * Get-GDHelp  - Gets this help text
-* Get-GDFolderExtensions.ps1 - gets all the extensions for shows in GD archive
-* Get-GDShowSizeByYear.ps1 - creates a summary of total shows by year
-* Get-TodayInHistory.ps1 - gets all the shows from today in GD/Jerry history, optionally opening them in Windows Explorer 
-* Measure-GdDuplicate.ps1 - works out how many shows have duplcate recordings
-* Measure-GDShows.ps1 - creates a useful summary of what is in the GD/JG archive
-
+* Get-GDFolderExtensions - gets all the extensions for shows in GD archive
+* Get-GDShowSizeByYear   - creates a summary of total shows by year
+* Get-TodayInHistory     - gets all the shows from today in GD/Jerry history, optionally opening them in Windows Explorer 
+* Measure-GdDuplicate    - works out how many shows have duplcate recordings
+* Measure-GDShows        - creates a useful summary of what is in the GD/JG archive
 '@
 
 # Display the help text

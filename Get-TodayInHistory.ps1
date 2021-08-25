@@ -1,33 +1,58 @@
 Function Get-TodayInHistory {
+<#
+.Synopsis
+   Gets Grateful Dead and JBG shows from today's day in history
+.DESCRIPTION
+   Searches my GD and JGB archives for any shows that took place on today's date.
+   Optionally, the function can open Explorer windows to all of the shows for you to click and play,
+.EXAMPLE
+PSH [C:\Foo]: Get-TodayInHistory
 
-#  Version 1.0 - 6 May 2021
+    Get-TodayInHistory.Ps1 - v 1.0.2
++-------------------------------------+
+!  Dead Show Base  : M:\GD            !
+!  Jerry Show Base : N:\Jerry Garcia  !
++-------------------------------------+
 
+ ****  Today in GD History
+M:\gd\gd72-08-25.sbd.miller.92840.sbeok.flac16
+M:\gd\gd72-08-25.sbd.partial.deibert.12751.sbefail.shnf
+M:\gd\gd93-08-25.sbd.wiley.11812.sbeok.shnf
+
+ *** Today in Jerry History
+N:\Jerry Garcia\jg_1991_project\jg1991-08-25.jgdg.aud.darroch.87244.sbeok.flac16
+N:\Jerry Garcia\jg_1991_project\jg1991-08-25.jgdg.matrix-reutelhuber.26573.sbeok.flac16
+N:\Jerry Garcia\jg_1991_project\jg1991-08-25.jgdg.sbd.unknown.28843.sbeok.flac16
+N:\Jerry Garcia\jg_1991_project\jg1991-08-25.jgdg.sbd.walker.4370.sbeok.shnf
+.NOTES
+   Like all the functions in this module, this function expects a specific folder strucure and coding structure for each show.
+   JGB and GD shows are stored in different locations and have a slightly different format:
+
+   Dead shows are formatted:
+   gdyy-mm-dd.<tokens indicating sbd/aud,etree id, <codec> znc possily BROKEN
+   gd71-01-21.131517.aud.miller.flac16     # an audience recording mastered by Charlie Miller
+   gd72-03-18.sbd.shnf.BROKEN              # a show whose MD5's do not check out.
+
+Jerry shows are under the base but organised by year so:
+   \jg_1975_project\jg75-05-21.lom.138271.sbd.buffalo.flac16
+#>
+ 
 [CmdletBinding()]
 Param (
   [Switch] $OpenExplorerFolders   # opens today's shows in explorer
 )
 
-
-# Define Constants:
-#   $DeadShowBase      - folder at top of gd shows
-#   $JerryShowBase     - folder at top of jerry shows
 #  
-#  Dead shows are formatted:
-#  gdyy-mm-dd.<tokens indicating sbd/aud,etree id, <codec> znc possily BROKEN
-#  EG
-#  gd71-01-21.aud.miller.131517.flac16
-#  gd72-03-18.sbd.shnf.BROKEN      # a show whose MD5's do not check out.
-#
-#  Jerry shows are under the base but organised by year so:
-#  jg_1975_project\jg75-05-21.lom.138271.sbd.buffalo.flac16
-
 
 # 0. Define the base folder and constants
-$NS = "No Shows From today ($(Get-Date -Format MM-dd)" # the default output
+#   $DeadShowBase      - folder at top of gd shows
+#   $JerryShowBase     - folder at top of jerry shows
 $DeadShowBase  = 'M:\GD'      
 $JerryShowBase = 'N:\Jerry Garcia'
-
-
+# the default output
+$NS = "No Shows From today ($(Get-Date -Format MM-dd)" 
+# define the function version
+$VER = [version]::new(1,0,2) 
 # 1. Define some internal functions
 function f  {param ($d) Get-ChildItem -path gd:\* | Where-Object {$_.name -match $d}}
 function fj {Param ($d)
@@ -45,12 +70,11 @@ $dir | where-object name -match $d
 }
 
 # 1. Announce Ourselves
-'Get-TodayInHistory.Ps1 - v 1.0.1'
-'Finding Today In GD/Jerry History'
-'+-----------------------------------+' 
-"!Dead Show Base  :  $DeadShowBase           !"
-"!Jerry Show Base :  $JerryShowBase !"
-'+-----------------------------------+'
+"    Get-TodayInHistory.Ps1 - v $($Ver.ToString())"
+'+-------------------------------------+' 
+"!  Dead Show Base  : $DeadShowBase            !"
+"!  Jerry Show Base : $JerryShowBase  !"
+'+-------------------------------------+'
 ''
 ''
 
@@ -84,7 +108,6 @@ if ($TodayJerrry -eq $NS) {
 Else {
   $TodayJerry  | ForEach-Object {$_.Fullname}
 }
-''
 
 # 5. And open the explorer windows if asked
 if ($OpenExplorerFolders) {

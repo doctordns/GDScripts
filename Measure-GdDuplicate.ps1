@@ -3,24 +3,23 @@ function Measure-GdDuplicate {
 .SYNOPSIS
     Finds duplicates in the GD archive
 .DESCRIPTION
-    This script looks through the GD shows and summarise any duplicates.
-    I use a hash table $Shows to hold unique Events/shows/etc for which a recording could exist
-    The hashtable key is the date of the show.
-    The hashtable value is a count of how many recordings for that event
+    This script looks through the GD shows and summaries any duplicates.
+    I use a hash table $Shows to hold unique Events/shows/etc for which a recording could exist,.
+    Each hash table entry's key is the date of the show while the value is a count of how many recordings for that event.
     The length of the hash table is thus the number of unique events, thus the rest of the shows are therefore duplicates.
     Updated: 10 Apr 2019 - rename to use a proper verb, updated the documentation and did some updates to the code.
                          - Added a count of miller transfers too.
     Updated 29 Dec 2020  - updated header and fixed example                        
-
+    Updated 30 Aug 2021  - updated the help text, turned script into a function to be included ihn the GDScripts module.
 .NOTES
     File Name  : Measure-GDDuplicate.ps1
 	Author     : Thomas Lee - tfl@psp.co.uk
 .LINK
-    http://www.pshscripts.blogspot.com
+    https://github.com/doctordns/GDScripts
 .EXAMPLE
     Measure-GdDuplicate.ps1
     +-------------------------------------+
-    !  Measure-GdDuplicate.ps1 - v 2.0.3  !
+    !  Measure-GdDuplicate.ps1 - v 2.0.4  !
     !   Find Duplicate Shows in: M:\gd    !
     +-------------------------------------+
 
@@ -33,7 +32,7 @@ function Measure-GdDuplicate {
 
 ###
 # Start of Script
-##
+###
 
 # Constants:
 # $GDDiskRoot    - Disk where shows are stored
@@ -44,7 +43,7 @@ $DeadShowBase = $GDDiskRoot + '\gd'
 
 # Display Header
 "+-------------------------------------+"
-"!  Measure-GdDuplicate.ps1 - v 2.0.3  !"
+"!  Measure-GdDuplicate.ps1 - v 2.0.4  !"
 "!  Find Duplicate Shows in: $DeadShowBase     !"
 "+-------------------------------------+"
 ""
@@ -52,13 +51,13 @@ $DeadShowBase = $GDDiskRoot + '\gd'
 $StartTime = Get-Date
 
 # Get the Dead shows
-$Dir       = Get-ChildItem $DeadShowBase | Where-Object { $_.psiscontainer }
-$DeadShows = $Dir.count
+$Dir       = Get-ChildItem $DeadShowBase -Directory
+$DeadShows = $Dir.Count
 if ($DeadSHows -le 0) { "No shows found - check the constants"; return }
 
 # Look for duplicates
 $Shows = @{ }  # Create the hash table
-$j = 0         # create an intital count
+$j = 0         # create an initial count
 
 # Loop through each show
 foreach ($Show in $Dir) {
@@ -100,4 +99,4 @@ foreach ($Show in $Shows) {
 $FinishTime = Get-Date
 $ES = ($FinishTime - $StartTime).TotalSeconds
 "$ES Seconds elapsed"
-}
+} # End of Function

@@ -35,12 +35,12 @@ Description = 'Contains functions to assist with curation of a GratefulDead/Jerr
 
 # Script files (.ps1) that are run in the caller's environment prior to importing this module.
 ScriptsToProcess = @(
- 'Get-DeadShowEncoding.ps1',
- 'Get-GDFolderExtensions.ps1',
- 'Get-GdHelp.ps1',
+ 'Get-GDShowEncoding.ps1',
+ 'Get-GDFolderExtension.ps1',
+ 'Get-GDHelp.ps1',
  'Get-GDShowSizeByYear.ps1',
- 'Get-TodayInHistory.ps1'
- 'Measure-GdDuplicate.ps1',
+ 'Get-GDTodayInHistory.ps1'
+ 'Measure-GDDuplicate.ps1',
  'Measure-GDShows.ps1'
 )
 

@@ -26,12 +26,11 @@ $DeadShowBase = 'M:\GD'
 $JerryShowBase = 'N:\Jerry Garcia'
 
 # Announce Ourselves
-'Measure-GDShows.Ps1 - v 3.03'
-'Count My Dead\Jerry Shows'
-'+-----------------------------------+' 
-"!Dead Show Base  :  $DeadShowBase           !"
-"!Jerry Show Base :  $JerryShowBase !"
-'+-----------------------------------+'
+'Measure-GDShows.Ps1 - v 3.04'
+'+------------------------------------+' 
+"! Dead Show Base  :  $DeadShowBase           !"
+"! Jerry Show Base :  $JerryShowBase !"
+'+------------------------------------+'
 ''
 ''
 
@@ -60,7 +59,7 @@ $showidok = ($dir | Where-Object { $_.name -match '\.\d{2,6}\.' }).Count
 $showidbad = ($dir | Where-Object { $_.name -notmatch '\.\d{2,6}\.' }).Count
 
 # And see how many have the md5ok's and how many 
-# are speciried at ETree?
+# are specified at ETree?
 $DeadMD5Checked = 0
 $DeadShowInEtree = 0
 foreach ($d in $dir) { 
@@ -72,7 +71,7 @@ foreach ($d in $dir) {
 
   # Now check on Etree
   $sn = $d.fullname + '\EtreeDBSource'
-  $EtreeOK = Get-ChildItem $sn -ea silentlycontinue
+  $EtreeOK = Get-ChildItem $sn -ea SilentlyContinue
   if ($EtreeOK ) 
   { $DeadShowInEtree++ }
 }
@@ -104,7 +103,7 @@ $DeadShowsInEtreePct = ($DeadShowInEtree / $Deadshows).tostring('p')
 # If duplicate counting requested - run measure-gdduplicates
 
 If ($MeasureDuplicates) {
-  .\Measure-GdDuplicate.ps1
+   Measure-GDDuplicate
   ""
 }
 

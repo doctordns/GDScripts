@@ -1,4 +1,4 @@
-﻿Function Get-DeadShowEncoding {
+﻿Function Get-GDShowEncoding {
 <#
 .Synopsis
    Gets the encoding extension from all Dead Shows and displays them
@@ -9,11 +9,11 @@
    current naming convention.
 
 .NOTES
-   Function Name    : Get-DeadShowEncoding
+   Function Name    : Get-GDShowEncoding
 .LINK
    None yet
 .EXAMPLE
-   Psh> .Get-DeadShowEncoding
+   Psh> .Get-GDShowEncoding
    Name                           Value                                                                              
    ----                           -----                                                                              
    shnf                           1021                                                                               
@@ -22,16 +22,16 @@
    ...
 #>
 
-# Define are the base folders
+# Define the base folder
 $DeadShowBase = 'M:\GD'
-$JerryShowBase = 'N:\Jerry Garcia'
+# $JerryShowBase = 'N:\Jerry Garcia'
 
 # Announce Ourselves
-'Measure-GDShows.Ps1 - v 3.03'
+'Get-GDShowEncoding.Ps1 - v 4.0'
 '+-------------------------------------+'
 "! Counting the GD folder extensions   !"
 "! Dead Show Base  :  $DeadShowBase            !"
-"! Jerry Show Base :  $JerryShowBase  !"
+#"! Jerry Show Base :  $JerryShowBase  !"
 '+-------------------------------------+'
 
 # Get the folders
@@ -40,7 +40,8 @@ $Dirs = Get-ChildItem -path $DeadShowBase -Directory
 # Create a hash table of extensions
 $Ext = @{}
 
-# now iterate through each directory
+# Now iterate through each directory, get the extension, 
+# then get the final token which should be the encoding.
 Foreach ($Dir in $Dirs) {
   $X = $Dir.FullName.split('.')[-1]
   $Ext.$X++
@@ -51,3 +52,6 @@ $ext.GetEnumerator() | Sort-Object -Property Value -Descending
 '{0} different encodings' -f $ext.count
 
 } # end of function
+
+# to do:
+# Add JGB shows to this set

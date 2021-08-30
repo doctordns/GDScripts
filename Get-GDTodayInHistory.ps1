@@ -1,4 +1,4 @@
-Function Get-TodayInHistory {
+Function Get-GDTodayInHistory {
 <#
 .Synopsis
    Gets Grateful Dead and JBG shows from today's day in history
@@ -6,9 +6,9 @@ Function Get-TodayInHistory {
    Searches my GD and JGB archives for any shows that took place on today's date.
    Optionally, the function can open Explorer windows to all of the shows for you to click and play,
 .EXAMPLE
-PSH [C:\Foo]: Get-TodayInHistory
+PSH [C:\Foo]: Get-GDTodayInHistory
 
-    Get-TodayInHistory.Ps1 - v 1.0.2
+    Get-GDTodayInHistory.Ps1 - v 1.0.3
 +-------------------------------------+
 !  Dead Show Base  : M:\GD            !
 !  Jerry Show Base : N:\Jerry Garcia  !
@@ -51,10 +51,15 @@ $DeadShowBase  = 'M:\GD'
 $JerryShowBase = 'N:\Jerry Garcia'
 # the default output
 $NS = "No Shows From today ($(Get-Date -Format MM-dd)" 
-# define the function version
-$VER = [version]::new(1,0,2) 
+
+# Define the function version
+$VER = [version]::new(1,0,3)   # 1.0.3 for this function
+
 # 1. Define some internal functions
+
+# f finds all the GD shows that patch a pattern
 function f  {param ($d) Get-ChildItem -path gd:\* | Where-Object {$_.name -match $d}}
+# fj finds all jerry shows matching a pattern
 function fj {Param ($d)
  $JerryShowBase  = "N:\Jerry Garcia"
  # Get high level set

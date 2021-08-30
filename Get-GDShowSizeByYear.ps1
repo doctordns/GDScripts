@@ -14,7 +14,7 @@
     System.String
 
 .NOTES
-  1. This assumes all files in the archive ($GDBASE) are of the format:
+  1. This assumes all files in the archive ($GDBase) are of the format:
           gdyy-mm-dd-...
      The regular expression in the middle of the script parses each show folder name to pull out
      the year from the show name (ie the folder name)     

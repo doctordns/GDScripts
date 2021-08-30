@@ -25,14 +25,13 @@ Each .ps1 file contains a single function:
 
 Functions provided in this module
 
-* Get-DeadShowEncoding   - Counts the different encodings coded into the folder names for all shows.
+* Get-GDShowEncoding     - Counts the different encodings coded into the folder names for all shows.
 * Get-GDFolderExtensions - Gets the final folder type (flac, etc.) for all the shows.
 * Get-GDShowSizeByYear   - Gets and reports the size of the GD shows, by year.
 * Get-GDShowSizeByYear   - Shows the size of each year's shows.
-* Get-ToDayInHistory     - gets all the shows performed on this date and optionally opens in them in Explorer.
-* Measure-GdDuplicate    - Shows how many shows are unique and how many have duplicate recordings.
+* Get-GDTodayInHistory   - gets all the shows performed on this date and optionally opens in them in Explorer.
+* Measure-GDDuplicate    - Shows how many shows are unique and how many have duplicate recordings.
 * Measure-GDShows        - Counts all the GD and Jerry Shows
-
 
 Enjoy - and let me know if you find these useful.
 

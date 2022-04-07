@@ -27,6 +27,7 @@ function Measure-GdDuplicate {
 1741 unique GD concerts
 782 shows have duplicates
 1071 shows are duplicates of others
+5.4655384 Seconds elapsed
     
 #>
 
